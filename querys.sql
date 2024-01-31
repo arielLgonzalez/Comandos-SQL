@@ -1,28 +1,29 @@
+-¿Quién es el empleado de mayor antigüedad según el puesto de trabajo?-
 
 SELECT last_name, first_name, title, hire_date FROM employee
 order by hire_date ASC
 LIMIT 1;
 
--QUESTION TWO-
+-¿Qué países tienen más facturas?-
 
 SELECT BILLING_COUNTRY, COUNT(INVOICE_ID) AS FACTURAS FROM INVOICE
 GROUP BY BILLING_COUNTRY 
 ORDER BY FACTURAS DESC
 LIMIT 5;
 
--QUESTION THREE-
+-¿Cuáles son las facturas top 3 en valores total?-
 
 SELECT TOTAL, INVOICE_ID, INVOICE_DATE FROM INVOICE
 ORDER BY TOTAL DESC
 LIMIT 3;
 
--QUESTION FOUR-
+-¿Qué ciudad tiene los mejores clientes? -
 
 SELECT BILLING_CITY, SUM(TOTAL) AS TOTAL_PER_CITY FROM INVOICE
 GROUP BY BILLING_CITY
 ORDER BY TOTAL_PER_CITY DESC;
 
--QUESTION FIVE-
+-¿Quién es el mejor cliente?-
 
 SELECT C.CUSTOMER_ID, C.FIRST_NAME, C.LAST_NAME, SUM(INVOICE.TOTAL) AS TOTAL_PER_CLIENTE
 FROM CUSTOMER C
@@ -32,7 +33,8 @@ GROUP BY C.CUSTOMER_ID
 ORDER BY TOTAL_PER_CLIENTE DESC
 LIMIT 1;
 
--QUESTION ONE PART TWO-
+-Escriba una consulta para devolver el correo electrónico, el nombre,
+el apellido y el género de todos los oyentes de música rock. -
 
 SELECT DISTINCT EMAIL, FIRST_NAME, LAST_NAME, GENRE.NAME FROM CUSTOMER
 JOIN INVOICE ON 
@@ -46,7 +48,8 @@ TRACK.GENRE_ID = GENRE.GENRE_ID
 WHERE GENRE.NAME = 'Rock'
 ORDER BY EMAIL ASC;
 
--QUESTION TWO PART TWO-
+-Escriba una consulta que devuelva el nombre del artista y el recuento total
+de canciones de las 10 mejores bandas de rock.-
 
 SELECT ARTIST.NAME, COUNT(ARTIST.ARTIST_ID) TOTAL_TRACKS FROM ARTIST
 JOIN ALBUM ON 
@@ -60,21 +63,9 @@ GROUP BY ARTIST.NAME
 ORDER BY TOTAL_TRACKS DESC
 LIMIT 10;
 
--QUESTION TWO PART TWO-
+-Devuelva todos los nombres de pistas que tengan una duración de canción mayor
+que la duración promedio de la canción. -
  
 SELECT NAME, MILLISECONDS FROM TRACK
 WHERE MILLISECONDS > (SELECT AVG(MILLISECONDS) FROM TRACK)
 ORDER BY MILLISECONDS DESC;
-
-
-
-
-
-
-
-
-
-
-
-
-
